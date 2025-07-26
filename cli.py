@@ -2,6 +2,10 @@ import click
 import api_auth
 from dotenv import load_dotenv
 import os
+from audits.customers import audit_customers_no_properties
+from audits.properties import audit_properties_many_addresses
+from audits.assets import audit_asset_makes_count
+from audits.vendors import audit_vendors_duplicates
 
 
 @click.group()
@@ -16,22 +20,22 @@ def cli():
 @cli.command()
 def customers_no_properties():
     """List customers without properties"""
-    click.echo("Listing customers without properties...")
+    click.echo(audit_customers_no_properties())
 
 @cli.command()
 def properties_many_addresses():
     """List properties with more than 2 addresses"""
-    click.echo("Listing properties with many addresses...")
+    click.echo(audit_properties_many_addresses())
 
 @cli.command()
 def asset_make_counts():
     """List of asset make and number of assets for each make """
-    click.echo("Listing asset make counts...")
+    click.echo(audit_asset_makes_count())
 
 @cli.command()
 def vendor_duplicate():
     """List vendors with duplicate names"""
-    click.echo("Listing vendors with duplicate names...")
+    click.echo(audit_vendors_duplicates())
 
 if __name__ == "__main__":
     cli()
