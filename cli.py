@@ -1,9 +1,23 @@
 import click
+import api_auth
+from dotenv import load_dotenv
+import os
+
+
+
+CLIENT_ID = os.getenv("MYAPP_CLIENT_ID")
+CLIENT_SECRET = os.getenv("MYAPP_CLIENT_SECRET")
+TENANT_ID = os.getenv("MYAPP_TENANT_ID")
+
 
 @click.group()
 def cli():
     """Bugchella Audit CLI Tool"""
-    pass
+    load_dotenv()  # Loads from .env file in current dir
+    client_id = os.getenv("CLIENT_ID")
+    client_secret = os.getenv("CLIENT_SECRET")
+    tenant_id = os.getenv("TENANT_ID")
+    api_auth.authorize(client_id, client_secret, tenant_id)
 
 @cli.command()
 def customers_no_properties():
