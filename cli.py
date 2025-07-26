@@ -4,12 +4,6 @@ from dotenv import load_dotenv
 import os
 
 
-
-CLIENT_ID = os.getenv("MYAPP_CLIENT_ID")
-CLIENT_SECRET = os.getenv("MYAPP_CLIENT_SECRET")
-TENANT_ID = os.getenv("MYAPP_TENANT_ID")
-
-
 @click.group()
 def cli():
     """Bugchella Audit CLI Tool"""
