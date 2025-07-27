@@ -3,10 +3,10 @@ import api_auth
 from dotenv import load_dotenv
 import os
 from audits.customers import audit_customers_no_properties
-from audits.properties import audit_properties_many_addresses
+from audits.properties import audit_properties_many_addresses, export_properties_for_kepler, show_properties_on_map
 from audits.assets import audit_asset_makes_count
 from audits.vendors import audit_vendors_duplicates
-
+import csv
 import sys
 
 @click.group()
@@ -37,6 +37,13 @@ def asset_make_counts():
 def vendor_duplicate():
     """List vendors with duplicate names"""
     click.echo(audit_vendors_duplicates())
+
+@cli.command()
+@click.option('--state', required=True, help='State code to filter properties (e.g., CA, NY)')
+def show_map(state):
+    """Show properties on a map filtered by state"""
+    show_properties_on_map(state)
+    click.echo(f"Map for state '{state}' saved as properties_{state}.html")
 
 if __name__ == "__main__":
     if sys.version_info < (3, 9):

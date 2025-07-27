@@ -48,6 +48,20 @@ python cli.py [COMMAND]
 - `vendor_duplicate`  
   List vendors with duplicate names.
 
+### show-map
+
+Show properties on a map filtered by state.
+
+**Usage:**
+```bash
+python cli.py show-map --state <STATE_CODE>
+```
+
+**Options:**
+- `--state` (required): State code to filter properties (e.g., CA, NY).
+
+The generated map will be saved as `properties_<STATE_CODE>.html` in the current directory.
+
 ## File Structure
 
 - [`cli.py`](cli.py): Main CLI entry point
