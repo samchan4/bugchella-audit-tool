@@ -36,16 +36,16 @@ python cli.py [COMMAND]
 
 ### Commands
 
-- `customers_no_properties`  
+- `customers-no-properties`  
   List customers without properties.
 
-- `properties_many_addresses`  
+- `properties-many-addresses`  
   List properties with more than 2 addresses.
 
-- `asset_make_counts`  
+- `asset-make-counts`  
   List asset makes and number of assets for each make.
 
-- `vendor_duplicate`  
+- `vendor-duplicate`  
   List vendors with duplicate names.
 
 ### show-map
