@@ -1,7 +1,9 @@
 from data_sources import get_properties
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from timeit import default_timer as timer
+from functools import cache
 
+@cache
 def fetch_all_properties(limit=100):
     """
     Fetch all properties across all customers.

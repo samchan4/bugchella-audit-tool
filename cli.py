@@ -7,6 +7,7 @@ from audits.properties import audit_properties_many_addresses
 from audits.assets import audit_asset_makes_count
 from audits.vendors import audit_vendors_duplicates
 
+import sys
 
 @click.group()
 def cli():
@@ -38,4 +39,8 @@ def vendor_duplicate():
     click.echo(audit_vendors_duplicates())
 
 if __name__ == "__main__":
+    if sys.version_info < (3, 9):
+        print("Python 3.9 or newer is required.")
+        sys.exit(1)
     cli()
+    

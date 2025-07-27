@@ -1,7 +1,9 @@
 from data_sources import get_customers, get_properties_list_by_customerID
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from timeit import default_timer as timer
+from functools import cache
 
+@cache
 def fetch_all_customers(limit=100):
     # Fetch first page to get totalCount
     customers = []
@@ -25,34 +27,6 @@ def fetch_all_customers(limit=100):
             customers.extend(future.result().get('items', []))
     return customers
 
-def audit_customers_with_properties():
-    """
-    Audit customers with properties.
-    Returns a dict with 'customers' (list of (name, id) tuples) and 'totalCount'.
-    prints elapsed time.
-    """
-    max_workers = 50
-    customers_with_properties = []
-    customers = fetch_all_customers()
-
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = {
-            executor.submit(get_properties_list_by_customerID, c['id']): c for c in customers
-        }
-
-        for future in as_completed(futures):
-            customer = futures[future]
-            try:
-                property_list = future.result()
-                if property_list['totalCount'] > 0:
-                    customers_with_properties.append((customer['name'], customer['id']))
-            except Exception as e:
-                print(f"Error processing customer {customer['name']} (ID: {customer['id']}): {e}")
-
-    return {
-        "customers": customers_with_properties,
-        "totalCount": len(customers_with_properties)
-    }
 
 def audit_customers_no_properties():
     """
