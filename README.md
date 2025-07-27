@@ -11,6 +11,8 @@ A Python CLI for auditing BuildOps data, including customers, properties, assets
 
 ## Setup
 
+**Ensure you have Python 3.9 or newer installed.**
+
 1. **Clone the repository**  
 2. **Install dependencies**  
    ```sh
