@@ -26,7 +26,7 @@ def get_properties(limit=100, page=0):
     return requests.get(
         f"{BASE_URL}/v1/properties",
         headers=_get_headers(),
-        params={"page_size": limit, "page": page}
+        params={"page_size": limit, "page": page, "include_addresses": "true"}
     ).json()
 
 def get_asset_makes(limit=100, page=0):
