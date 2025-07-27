@@ -1,6 +1,5 @@
 from data_sources import get_vendors
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from timeit import default_timer as timer
 from collections import Counter
 
 def fetch_all_vendors(limit=100):
@@ -37,9 +36,8 @@ def audit_vendors_duplicates():
     Returns a dict with 'vendors' (list of vendors with duplicate names) and 'totalCount'.
     """
     all_vendors = fetch_all_vendors()
-    # Find duplicates
     counts = Counter(all_vendors)
-    duplicates = [name for name, count in counts.items() if count > 1]
+    duplicates = {name: count for name, count in counts.items() if count > 1}
     
     return {
         "vendors": duplicates,
