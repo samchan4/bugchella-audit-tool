@@ -21,22 +21,54 @@ def cli():
 @cli.command()
 def customers_no_properties():
     """List customers without properties"""
-    click.echo(audit_customers_no_properties())
+    result = audit_customers_no_properties()
+    
+    click.echo("Customers with no properties:")
+    click.echo("----------------------------")
+    
+    for customer_name, customer_id in result.get("customers", []):
+        click.echo(f"Customer ID: {customer_id} - {customer_name}")
+    
+    click.echo(f"\nTotal: {result.get('totalCount', 0)} customers found with no properties")
 
 @cli.command()
 def properties_many_addresses():
     """List properties with more than 2 addresses"""
-    click.echo(audit_properties_many_addresses())
+    result = audit_properties_many_addresses()
+    
+    click.echo("Properties with more than 2 addresses:")
+    click.echo("------------------------------------")
+    
+    for property_name, property_id in result.get("properties", []):
+        click.echo(f"Property ID: {property_id} - {property_name}")
+    
+    click.echo(f"\nTotal: {result.get('totalCount', 0)} properties found with multiple addresses")
 
 @cli.command()
 def asset_make_counts():
     """List of asset make and number of assets for each make """
-    click.echo(audit_asset_makes_count())
+    result = audit_asset_makes_count()
+    click.echo("Asset counts by manufacturer:")
+    click.echo("---------------------------")
+    
+    total_assets = 0
+    for make, count in result.get("asset_makes_count", {}).items():
+        click.echo(f"{make}: {count} assets")
+        total_assets += count
+    
+    click.echo(f"\nTotal: {total_assets} assets across {len(result.get('asset_makes_count', {}))} manufacturers")
 
 @cli.command()
 def vendor_duplicate():
     """List vendors with duplicate names"""
-    click.echo(audit_vendors_duplicates())
+    result = audit_vendors_duplicates()
+    click.echo("Possible duplicate vendors:")
+    click.echo("-------------------------")
+    
+    for vendor_name, count in result.get("vendors", {}).items():
+        click.echo(f"\"{vendor_name}\" appears {count} times")
+
+    click.echo(f"\nTotal: {result.get('totalCount', 0)} potential duplicate vendor entries found")
 
 @cli.command()
 @click.option('--state', required=True, help='State code to filter properties (e.g., CA, NY)')
@@ -50,4 +82,3 @@ if __name__ == "__main__":
         print("Python 3.9 or newer is required.")
         sys.exit(1)
     cli()
-    
