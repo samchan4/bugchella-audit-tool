@@ -3,7 +3,7 @@ import api_auth
 from dotenv import load_dotenv
 import os
 from audits.customers import audit_customers_no_properties
-from audits.properties import audit_properties_many_addresses, export_properties_for_kepler, show_properties_on_map
+from audits.properties import audit_properties_many_addresses, show_properties_on_map
 from audits.assets import audit_asset_makes_count
 from audits.vendors import audit_vendors_duplicates
 import csv
